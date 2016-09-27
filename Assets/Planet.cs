@@ -4,6 +4,8 @@ using System.Collections;
 public class Planet : MonoBehaviour
 {
 
+    public bool sun = false;
+
     public double mass;
 
     [Tooltip("Seconds to orbit")]
@@ -13,22 +15,32 @@ public class Planet : MonoBehaviour
 
     public float orbitRadius = 10;
 
-    private float angle;    // The current angle of orbit
+    private float angle = 0;    // The current angle of orbit. This is in radians
     private float radiansPerSecond;
 
-    private float theta;    // The angle of rotation around the planets own axis
-    private float thetaIncPerSecond;
+    private float theta = 0;    // The angle of rotation around the planets own axis. This is in degrees
+    private float degreesPerSecond;
 
     void Update()
     {
-        radiansPerSecond = orbitPeriod / (2*Mathf.PI);
+        if (sun) return; // The sun doesn't move in our simulation
+        
+        radiansPerSecond = (2*Mathf.PI) / orbitPeriod;
 
         angle += radiansPerSecond * Time.deltaTime;
+        if(angle >= Mathf.PI * 2)
+        {
+            angle -= Mathf.PI * 2;
+        }
 
         transform.position = new Vector3(orbitRadius * Mathf.Cos(angle), 0, orbitRadius * Mathf.Sin(angle));
 
-        thetaIncPerSecond = nychthemeronDuration / (2 * Mathf.PI);
-        theta += thetaIncPerSecond * Time.deltaTime;
+        degreesPerSecond = 360.0f / nychthemeronDuration;
+        theta += degreesPerSecond * Time.deltaTime;
+        if(theta >= 360.0f)
+        {
+            theta -= 360.0f;
+        }
 
         transform.localRotation = Quaternion.Euler(new Vector3(0, theta, 0));
     }
