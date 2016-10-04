@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Planet : MonoBehaviour
 {
+    public static float timeMultiplier = 1f;
 
     public bool sun = false;
 
@@ -27,7 +28,7 @@ public class Planet : MonoBehaviour
         
         radiansPerSecond = (2*Mathf.PI) / orbitPeriod;
 
-        angle += radiansPerSecond * Time.deltaTime;
+        angle += radiansPerSecond * Time.deltaTime * timeMultiplier;
         if(angle >= Mathf.PI * 2)
         {
             angle -= Mathf.PI * 2;
@@ -36,7 +37,7 @@ public class Planet : MonoBehaviour
         transform.position = new Vector3(orbitRadius * Mathf.Cos(angle), 0, orbitRadius * Mathf.Sin(angle));
 
         degreesPerSecond = 360.0f / nychthemeronDuration;
-        theta += degreesPerSecond * Time.deltaTime;
+        theta += degreesPerSecond * Time.deltaTime * timeMultiplier;
         if(theta >= 360.0f)
         {
             theta -= 360.0f;
