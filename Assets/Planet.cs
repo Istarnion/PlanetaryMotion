@@ -22,6 +22,8 @@ public class Planet : MonoBehaviour
     private float theta = 0;    // The angle of rotation around the planets own axis. This is in degrees
     private float degreesPerSecond;
 
+    public Transform rotateAround;
+
     void Update()
     {
         if (sun) return; // The sun doesn't move in our simulation
@@ -34,7 +36,10 @@ public class Planet : MonoBehaviour
             angle -= Mathf.PI * 2;
         }
 
-        transform.localPosition = new Vector3(orbitRadius * Mathf.Cos(angle), 0, orbitRadius * Mathf.Sin(angle));
+        Vector3 origo = Vector3.zero;
+        if (rotateAround != null) origo = rotateAround.position;
+
+        transform.position = origo + new Vector3(orbitRadius * Mathf.Cos(angle), 0, orbitRadius * Mathf.Sin(angle));
 
         degreesPerSecond = 360.0f / nychthemeronDuration;
         theta += degreesPerSecond * Time.deltaTime * timeMultiplier;
