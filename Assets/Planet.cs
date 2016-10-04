@@ -34,7 +34,7 @@ public class Planet : MonoBehaviour
             angle -= Mathf.PI * 2;
         }
 
-        transform.position = new Vector3(orbitRadius * Mathf.Cos(angle), 0, orbitRadius * Mathf.Sin(angle));
+        transform.localPosition = new Vector3(orbitRadius * Mathf.Cos(angle), 0, orbitRadius * Mathf.Sin(angle));
 
         degreesPerSecond = 360.0f / nychthemeronDuration;
         theta += degreesPerSecond * Time.deltaTime * timeMultiplier;
