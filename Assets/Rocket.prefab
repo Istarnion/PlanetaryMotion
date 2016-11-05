@@ -19,10 +19,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011208039860}
-  - 114: {fileID: 114000014102179474}
   - 136: {fileID: 136000014137475520}
+  - 114: {fileID: 114000014074262120}
   m_Layer: 0
-  m_Name: Alien
+  m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,7 +108,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011216310734}
   m_Mesh: {fileID: 4300000, guid: 67229343e2c6a4bb7972c05a968ce212, type: 3}
---- !u!114 &114000014102179474
+--- !u!114 &114000014074262120
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -116,11 +116,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010629801294}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec9a2fa667ff84dbd95869475ae30dfd, type: 3}
+  m_Script: {fileID: 11500000, guid: 01f379ddfb3f841d089496593096944e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  velocity: {x: 0, y: 0, z: 0}
-  dead: 0
+  force: 3900000
+  fuelPerSecond: 1122
+  fuelMass: 282744
+  fuelTankMass: 10000
+  orbiterFuelMass: 500
+  orbiterMass: 500
+  velocity: {x: 0, y: 0}
+  position: {x: 0, y: 0}
 --- !u!136 &136000014137475520
 CapsuleCollider:
   m_ObjectHideFlags: 1
