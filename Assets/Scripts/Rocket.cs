@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class Rocket : Entity
@@ -15,13 +16,13 @@ public class Rocket : Entity
 
     public double orbiterMass = 500;
 
-    public override Vector2 F(Entity[] planets, Vector2 pos)
+    public override Vec2d F(Entity[] planets, Vec2d pos)
     {
-        Vector2 accel = Vector2.zero;
+        Vec2d accel = new Vec2d();
 
         foreach(var other in planets)
         {
-            accel += (float)G * (float)other.GetMass() * (other.position - pos) / Mathf.Pow(Vector2.Distance(other.position, pos), 3);
+            accel += G * other.GetMass() * (other.position - pos) / Math.Pow(Vec2d.Distance(other.position, pos), 3);
         }
 
         return accel;

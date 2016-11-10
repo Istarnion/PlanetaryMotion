@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class SolarSystem : MonoBehaviour
 {
 
-    public float timeMultiplier = 10f;
+    public double timeMultiplier = 1;
 
     public Entity[] entities;
 
@@ -13,10 +14,10 @@ public class SolarSystem : MonoBehaviour
 
     void FixedUpdate()
     {
-        Step(Time.fixedDeltaTime * 60 * timeMultiplier);
+        Step(Time.fixedDeltaTime * Math.Pow(60.0, useEuler? 3 : 1) * timeMultiplier);
     }
 
-    public void Step(float h)
+    public void Step(double h)
     {
         if(useEuler)
         {
@@ -28,7 +29,7 @@ public class SolarSystem : MonoBehaviour
         }
     }
 
-    private void EulerStep(float h, int n)
+    private void EulerStep(double h, int n)
     {
         h /= n;
 
@@ -42,11 +43,11 @@ public class SolarSystem : MonoBehaviour
         }
     }
 
-    private void RungeKuttaStep(float h, int n)
+    private void RungeKuttaStep(double h, int n)
     {
         h /= n;
 
-        Vector2 s11, s12, s21, s22, s31, s32, s41, s42;
+        Vec2d s11, s12, s21, s22, s31, s32, s41, s42;
 
         for(int i=0; i<n; ++i)
         {
