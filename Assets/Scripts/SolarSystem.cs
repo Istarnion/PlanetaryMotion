@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections;
 
@@ -9,8 +10,10 @@ public class SolarSystem : MonoBehaviour
 
     public Entity[] entities;
 
-    public bool useEuler;
+    private bool useEuler = true;
     public int numSteps = 100;
+
+    public Text gui;
 
     void FixedUpdate()
     {
@@ -19,6 +22,8 @@ public class SolarSystem : MonoBehaviour
 
     public void Step(double h)
     {
+        gui.text = string.Format("h: {0}", h);
+
         if(useEuler)
         {
             EulerStep(h, numSteps);
@@ -68,5 +73,15 @@ public class SolarSystem : MonoBehaviour
                 e.velocity = e.velocity + h / 6 * (s12 + 2*s22 + 2*s32 + s42);
             }
         }
+    }
+
+    public void UseEuler(bool b)
+    {
+        useEuler = b;
+    }
+
+    public void UseRungeKutta(bool b)
+    {
+        useEuler = !b;
     }
 }
