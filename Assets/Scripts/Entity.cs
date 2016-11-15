@@ -18,7 +18,6 @@ public abstract class Entity : MonoBehaviour
         if(position.x != 0 && position.y != 0)
         {
             transform.position = new Vector3((float)(position.x * scale), 0, (float)(position.y * scale));
-            // Debug.Log(string.Format("{0}: x: {1}, y: {2}\n\tX: {3}, Y: {4}", gameObject.name, position.x, position.y, transform.position.x, transform.position.y));
         }
     }
 

@@ -16,13 +16,26 @@ public class Rocket : Entity
 
     public double orbiterMass = 500;
 
+    public Transform model;
+
+    void FixedUpdate()
+    {
+        if(velocity.LengthSquared() > 1)
+        {
+            model.transform.forward = new Vector3((float)velocity.x, 0, (float)velocity.y);
+        }
+    }
+
     public override Vec2d F(Entity[] planets, Vec2d pos)
     {
         Vec2d accel = new Vec2d();
 
         foreach(var other in planets)
         {
-            accel += G * other.GetMass() * (other.position - pos) / Math.Pow(Vec2d.Distance(other.position, pos), 3);
+            if(other.GetMass() > 3e23)
+            {
+                accel += G * other.GetMass() * (other.position - pos) / Math.Pow(Vec2d.Distance(other.position, pos), 3);
+            }
         }
 
         return accel;

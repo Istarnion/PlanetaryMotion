@@ -6,6 +6,8 @@ public class Planet : Entity
 {
     public double mass;
 
+    public double rotationTime;
+
     public override double GetMass()
     {
         return mass;
@@ -17,13 +19,16 @@ public class Planet : Entity
 
         foreach(var other in entities)
         {
-            if(!pos.Equals(other.position))
+            if(other.GetMass() > 3e23) // Only accelerate towards planets
             {
-                double pow = Math.Pow(Vec2d.Distance(other.position, pos), 3);
-                double gmass = G * other.GetMass();
-                var offset = (other.position - pos);
-                var nominator = gmass * offset;
-                accel += nominator / pow;
+                if(!pos.Equals(other.position))
+                {
+                    double pow = Math.Pow(Vec2d.Distance(other.position, pos), 3);
+                    double gmass = G * other.GetMass();
+                    var offset = (other.position - pos);
+                    var nominator = gmass * offset;
+                    accel += nominator / pow;
+                }
             }
         }
 
