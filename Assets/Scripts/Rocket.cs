@@ -22,7 +22,8 @@ public class Rocket : Entity
     {
         if(velocity.LengthSquared() > 1)
         {
-            model.transform.forward = new Vector3((float)velocity.x, 0, (float)velocity.y);
+            transform.forward = new Vector3((float)velocity.x, 0, (float)velocity.y);
+            transform.up = Vector3.up;
         }
     }
 
@@ -30,11 +31,20 @@ public class Rocket : Entity
     {
         Vec2d accel = new Vec2d();
 
+        if(pos.LengthSquared() < 1)
+        {
+            return accel;
+        }
+
         foreach(var other in planets)
         {
             if(other.GetMass() > 3e23)
             {
-                accel += G * other.GetMass() * (other.position - pos) / Math.Pow(Vec2d.Distance(other.position, pos), 3);
+                double pow = Math.Pow(Vec2d.Distance(other.position, pos), 3);
+                double gmass = G * other.GetMass();
+                var offset = (other.position - pos);
+                var nominator = gmass * offset;
+                accel += nominator / pow;
             }
         }
 

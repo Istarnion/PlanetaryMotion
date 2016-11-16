@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class StageManager : MonoBehaviour
@@ -17,10 +18,6 @@ public class StageManager : MonoBehaviour
 
     public void ShowOverview()
     {
-        rocket.velocity = new Vec2d();
-        rocket.position = new Vec2d();
-        rocket.transform.position = Vector3.zero;
-
         cam.transform.parent = null;
 
         var camOldPos = cam.transform.position;
@@ -31,12 +28,26 @@ public class StageManager : MonoBehaviour
 
     public void StartLaunchStage()
     {
+        var sunPos = solarSystem.entities[0].position;
+        var earthPos = solarSystem.entities[3].position;
+        var earthVel = solarSystem.entities[3].velocity;
+
+        rocket.velocity = -(earthVel / 3.0);
+        rocket.position = earthPos;
+
+        var offset = earthPos - sunPos;
+        offset.Normalize();
+        offset *= 6671e3;
+
+        rocket.position += offset;
+
         cam.transform.SetParent(solarSystem.entities[3].transform);
         cam.transform.localPosition = new Vector3(0, 10, 0);
     }
 
-    public void LeaveOrbitStage()
+    public void Restart()
     {
+        SceneManager.LoadScene(0);
     }
 
     IEnumerator Lerp(Transform transform, Vector3 from, Vector3 to, float time)

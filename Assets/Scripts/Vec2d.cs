@@ -334,6 +334,7 @@ public struct Vec2d : IEquatable<Vec2d>
 
     public static Vec2d operator *(Vec2d value1, Vec2d value2)
     {
+        Debug.Log("Should this really be used?");
         value1.x *= value2.x;
         value1.y *= value2.y;
         return value1;
